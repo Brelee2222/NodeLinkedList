@@ -36,4 +36,5 @@ public interface LinkedArrayMethods<ElementType> {
     int indexOf(ElementType value);
     boolean contains(ElementType value);
     boolean isEmpty();
+    LinkedArray<ElementType> listCopy();
 }
