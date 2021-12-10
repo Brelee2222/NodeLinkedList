@@ -6,11 +6,15 @@ public class LinkedArray<ElementType> implements LinkedArrayMethods<ElementType>
     private NodeLinked<ElementType> tail = null;
     private NodeLinked<ElementType> trashedNodes = null;
 
+    public boolean nodeMessCheck() {
+        return head == null && head != tail;
+    }
+
     @Override
     public NodeLinked<ElementType> nodeReuse() {
         NodeLinked<ElementType> node;
         if(trashedNodes == null) {
-            node = new NodeLinked<ElementType>();
+            node = new NodeLinked();
         } else {
             node = trashedNodes;
             trashedNodes = trashedNodes.nodeNext;
@@ -271,5 +275,14 @@ public class LinkedArray<ElementType> implements LinkedArrayMethods<ElementType>
                 return nodeOld.value;
             }
         };
+    }
+
+    @Override
+    public LinkedArray<ElementType> listCopy() {
+        LinkedArray<ElementType> ListCopy = new LinkedArray<>();
+        for(ElementType node : this) {
+            ListCopy.addLast(node);
+        }
+        return ListCopy;
     }
 }
