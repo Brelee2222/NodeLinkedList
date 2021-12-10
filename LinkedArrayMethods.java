@@ -1,3 +1,7 @@
+package NodeArray;
+
+import NodeArray.LinkedArray;
+
 public interface LinkedArrayMethods<ElementType> {
     //Node Recycle
     void nodeRecycle(NodeLinked node);
