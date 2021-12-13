@@ -1,5 +1,3 @@
-package NodeArray;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -8,10 +6,12 @@ public class LinkedArray<ElementType> implements LinkedArrayMethods<ElementType>
     private NodeLinked<ElementType> tail = null;
     private NodeLinked<ElementType> trashedNodes = null;
 
+    //debug to check if there's a problem with being empty
     public boolean nodeMessCheck() {
         return head == null && head != tail;
     }
 
+    //Checks if trashed Nodes is empty, if so, it makes a new Class of type NodeLinked, otherwise, it returns trashedNodes
     @Override
     public NodeLinked<ElementType> nodeReuse() {
         NodeLinked<ElementType> node;
@@ -26,19 +26,21 @@ public class LinkedArray<ElementType> implements LinkedArrayMethods<ElementType>
         return node;
     }
 
+    //Stores a given class address of type NodeLinked
     @Override
     public void nodeRecycle(NodeLinked node) {
         node.nodeNext = trashedNodes;
         trashedNodes = node;
     }
 
+    //moves trashedNodes to the end of the list so that it can move head to trashedNodes
     @Override
     public void nodeRecycleList() {
-        NodeLinked node = trashedNodes;
-        trashedNodes = head;
         tail.nodeNext = trashedNodes;
+        trashedNodes = head;
     }
 
+    //Checks if isEmpty, if so head and tail will be mutual, if not do add first/last
     @Override
     public void addFirst(ElementType value) {
         NodeLinked<ElementType> node = nodeReuse();
@@ -67,6 +69,7 @@ public class LinkedArray<ElementType> implements LinkedArrayMethods<ElementType>
         tail = node;
     }
 
+    //checks if index is 0 or size
     @Override
     public void add(int index, ElementType value) {
         if(!isEmpty() && index > 0) {
@@ -97,6 +100,7 @@ public class LinkedArray<ElementType> implements LinkedArrayMethods<ElementType>
         addLast(value);
     }
 
+    //because there's no point in removing the value of a node, it does add first, but without setting a value
     @Override
     public void addFirstRecover() {
         NodeLinked<ElementType> node = nodeReuse();
@@ -123,12 +127,14 @@ public class LinkedArray<ElementType> implements LinkedArrayMethods<ElementType>
         tail = node;
     }
 
+    //checks if index is out of range, if not set value of node to value
     @Override
     public void set(int index, ElementType value) {
         NodeLinked node = getNode(index);
         node.value = value;
     }
 
+    //counts size. there's no need in making a new variable for size, because the return type is restricted by int.
     @Override
     public int size() {
         NodeLinked node = head;
@@ -140,11 +146,13 @@ public class LinkedArray<ElementType> implements LinkedArrayMethods<ElementType>
         return length;
     }
 
+    //gets node, and returns node's value
     @Override
     public ElementType get(int index) {
         return (ElementType) getNode(index).value;
     }
 
+    //gets node
     @Override
     public NodeLinked getNode(int index) {
         if (size() <= index || index < 0)
@@ -182,6 +190,7 @@ public class LinkedArray<ElementType> implements LinkedArrayMethods<ElementType>
         return tail;
     }
 
+    //removes links of node, then sends it to recycle
     @Override
     public void remove(int index) {
         NodeLinked node = getNode(index);
@@ -226,11 +235,13 @@ public class LinkedArray<ElementType> implements LinkedArrayMethods<ElementType>
         }
     }
 
+    //because head and tail are private, if head is null, you can't get to tail therefore if head == null, isEmpty() == true
     @Override
     public boolean isEmpty() {
         return head == null;
     }
 
+    //sets head and tail to null, and sends list to recycle
     @Override
     public void clear() {
         nodeRecycleList();
@@ -238,6 +249,7 @@ public class LinkedArray<ElementType> implements LinkedArrayMethods<ElementType>
         tail = null;
     }
 
+    //same concept as isPrime()
     @Override
     public int indexOf(ElementType value) {
         NodeLinked node = head;
@@ -256,6 +268,7 @@ public class LinkedArray<ElementType> implements LinkedArrayMethods<ElementType>
             return -1;
     }
 
+    //runs indexOf, and checks is value is not equal to -1
     @Override
     public boolean contains(ElementType value) {
         return indexOf(value) != -1;
