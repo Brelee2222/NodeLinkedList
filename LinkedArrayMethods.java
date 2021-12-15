@@ -1,8 +1,4 @@
 public interface LinkedArrayMethods<ElementType> {
-    //Node Recycle
-    void nodeRecycle(NodeLinked node);
-    void nodeRecycleList();
-    NodeLinked<ElementType> nodeReuse();
 
     //*Node Add (Add, First, Last, FirstRecover, LastRecover, Set)
 
